@@ -1,0 +1,8 @@
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-vv --html=pytest_report.html"
+testpaths = [
+    "tests",
+]
+
+initial_sort = "original"

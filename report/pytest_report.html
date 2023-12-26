@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title id="head-title">Starlette performance report</title>
+      <link href="assets/style.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <h1 id="title">Starlette performance report</h1>
+    <p>Report generated on 26-Dec-2023 at 02:16:33 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a>
+        v4.1.1</p>
+    <div id="environment-header">
+      <h2>Environment</h2>
+    </div>
+    <table id="environment"></table>
+    <!-- TEMPLATES -->
+      <template id="template_environment_row">
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </template>
+    <template id="template_results-table__body--empty">
+      <tbody class="results-table-row">
+        <tr id="not-found-message">
+          <td colspan="5">No results found. Check the filters.</th>
+        </tr>
+    </template>
+    <template id="template_results-table__tbody">
+      <tbody class="results-table-row">
+        <tr class="collapsible">
+        </tr>
+        <tr class="extras-row">
+          <td class="extra" colspan="5">
+            <div class="extraHTML"></div>
+            <div class="media">
+              <div class="media-container">
+                  <div class="media-container__nav--left"><</div>
+                  <div class="media-container__viewport">
+                    <img src="" />
+                    <video controls>
+                      <source src="" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="media-container__nav--right">></div>
+                </div>
+                <div class="media__name"></div>
+                <div class="media__counter"></div>
+            </div>
+            <div class="logwrapper">
+              <div class="logexpander"></div>
+              <div class="log"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </template>
+    <!-- END TEMPLATES -->
+    <div class="summary">
+      <div class="summary__data">
+        <h2>Summary</h2>
+        <div class="additional-summary prefix">
+        </div>
+        <p class="run-count">25 tests took 00:09:07.</p>
+        <p class="filter">(Un)check the boxes to filter the results.</p>
+        <div class="summary__reload">
+          <div class="summary__reload__button hidden" onclick="location.reload()">
+            <div>There are still tests running. <br />Reload this page to get the latest results!</div>
+          </div>
+        </div>
+        <div class="summary__spacer"></div>
+        <div class="controls">
+          <div class="filters">
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="failed" disabled/>
+            <span class="failed">0 Failed,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="passed" />
+            <span class="passed">25 Passed,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="skipped" disabled/>
+            <span class="skipped">0 Skipped,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="xfailed" disabled/>
+            <span class="xfailed">0 Expected failures,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="xpassed" disabled/>
+            <span class="xpassed">0 Unexpected passes,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="error" disabled/>
+            <span class="error">0 Errors,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="rerun" disabled/>
+            <span class="rerun">0 Reruns</span>
+          </div>
+          <div class="collapse">
+            <button id="show_all_details">Show all details</button>&nbsp;/&nbsp;<button id="hide_all_details">Hide all details</button>
+          </div>
+        </div>
+      </div>
+      <div class="additional-summary summary">
+      </div>
+      <div class="additional-summary postfix">
+      </div>
+    </div>
+    <table id="results-table">
+      <thead id="results-table-head">
+        <tr>
+          <th class="sortable" data-column-type="result">Result</th>
+          <th class="sortable" data-column-type="testId">Test</th>
+          <th>Transaction rate</th>
+          <th class="sortable" data-column-type="duration">Duration</th>
+          <th>Links</th>
+        </tr>
+      </thead>
+    </table>
+  </body>
+  <footer>
+    <div id="data-container" data-jsonblob="{&#34;environment&#34;: {&#34;Python&#34;: &#34;3.10.12&#34;, &#34;Platform&#34;: &#34;Linux-6.2.0-39-generic-x86_64-with-glibc2.35&#34;, &#34;Packages&#34;: {&#34;pytest&#34;: &#34;7.4.3&#34;, &#34;pluggy&#34;: &#34;1.3.0&#34;}, &#34;Plugins&#34;: {&#34;metadata&#34;: &#34;3.0.0&#34;, &#34;html&#34;: &#34;4.1.1&#34;, &#34;flaky&#34;: &#34;3.7.0&#34;}}, &#34;tests&#34;: {&#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-00]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-00]&#34;, &#34;duration&#34;: &#34;00:00:32&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-00]&lt;/td&gt;&#34;, &#34;&lt;td&gt;1123.6&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:32&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 48ce3767d931f1e85d27b2d8276e1cf650883344ea5deac7315a3de735ee6a26, with 0 middlewares\nTransaction rate : 1123.6 r/s\n\n----------------------------- Captured stderr call -----------------------------\n#0 building with &amp;quot;default&amp;quot; instance using docker driver\n\n#1 [internal] load build definition from Dockerfile\n#1 transferring dockerfile: 996B done\n#1 DONE 0.1s\n\n#2 [internal] load .dockerignore\n#2 transferring context: 2B done\n#2 DONE 0.2s\n\n#3 resolve image config for docker.io/docker/dockerfile:1\n#3 ...\n\n#4 [auth] docker/dockerfile:pull token for registry-1.docker.io\n#4 DONE 0.0s\n\n#3 resolve image config for docker.io/docker/dockerfile:1\n#3 DONE 1.3s\n\n#5 docker-image://docker.io/docker/dockerfile:1@sha256:ac85f380a63b13dfcefa89046420e1781752bab202122f8f50032edf31be0021\n#5 CACHED\n\n#6 [internal] load metadata for docker.io/library/python:3.12.1\n#6 ...\n\n#7 [auth] library/python:pull token for registry-1.docker.io\n#7 DONE 0.0s\n\n#6 [internal] load metadata for docker.io/library/python:3.12.1\n#6 DONE 2.3s\n\n#8 [base 1/9] FROM docker.io/library/python:3.12.1@sha256:3733015cdd1bd7d9a0b9fe21a925b608de82131aa4f3d397e465a1fcb545d36f\n#8 DONE 0.0s\n\n#9 [internal] load build context\n#9 transferring context: 750B done\n#9 DONE 0.1s\n\n#10 [base 2/9] RUN --mount=type=cache,target=/root/.cache     python -m pip install -U pip\n#10 CACHED\n\n#11 [base 3/9] RUN --mount=type=cache,target=/var/cache/apt         apt-get update &amp;amp;&amp;amp; apt-get install -y             curl             siege\n#11 CACHED\n\n#12 [base 4/9] RUN --mount=type=cache,target=/root/.cache     pip install         requests\n#12 CACHED\n\n#13 [base 5/9] RUN --mount=type=cache,target=/root/.cache     pip install uvicorn==0.25.0\n#13 CACHED\n\n#14 [base 6/9] WORKDIR /home/root/app\n#14 CACHED\n\n#15 [base 7/9] COPY server.py server.py\n#15 CACHED\n\n#16 [base 8/9] COPY ./entrypoint.sh /entrypoint.sh\n#16 DONE 1.4s\n\n#17 [base 9/9] RUN chmod +x /entrypoint.sh\n#17 DONE 2.1s\n\n#18 [stage-1 1/2] RUN echo &amp;quot;installing starlette 0.34.0&amp;quot;\n#18 1.833 installing starlette 0.34.0\n#18 DONE 2.6s\n\n#19 [stage-1 2/2] RUN --mount=type=cache,target=/root/.cache     pip install STARLETTE==0.34.0\n#19 2.158 Collecting STARLETTE==0.34.0\n#19 2.166   Using cached starlette-0.34.0-py3-none-any.whl.metadata (5.8 kB)\n#19 2.341 Collecting anyio&amp;lt;5,&amp;gt;=3.4.0 (from STARLETTE==0.34.0)\n#19 2.348   Using cached anyio-4.2.0-py3-none-any.whl.metadata (4.6 kB)\n#19 2.375 Requirement already satisfied: idna&amp;gt;=2.8 in /usr/local/lib/python3.12/site-packages (from anyio&amp;lt;5,&amp;gt;=3.4.0-&amp;gt;STARLETTE==0.34.0) (3.6)\n#19 2.496 Collecting sniffio&amp;gt;=1.1 (from anyio&amp;lt;5,&amp;gt;=3.4.0-&amp;gt;STARLETTE==0.34.0)\n#19 2.499   Using cached sniffio-1.3.0-py3-none-any.whl (10 kB)\n#19 2.526 Using cached starlette-0.34.0-py3-none-any.whl (70 kB)\n#19 2.548 Using cached anyio-4.2.0-py3-none-any.whl (85 kB)\n#19 2.729 Installing collected packages: sniffio, anyio, STARLETTE\n#19 3.188 Successfully installed STARLETTE-0.34.0 anyio-4.2.0 sniffio-1.3.0\n#19 3.189 WARNING: Running pip as the &amp;#x27;root&amp;#x27; user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv\n#19 DONE 4.4s\n\n#20 exporting to image\n#20 exporting layers\n#20 exporting layers 1.4s done\n#20 writing image sha256:e048a7dca9377884c201bb20aa36129a31ac0604ec29dc4601e92b30c96f8630 0.0s done\n#20 naming to docker.io/library/test-starlette-perf:p3.12.1-u0.25.0-s0.34.0\n#20 naming to docker.io/library/test-starlette-perf:p3.12.1-u0.25.0-s0.34.0 0.1s done\n#20 DONE 1.5s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-01]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-01]&#34;, &#34;duration&#34;: &#34;00:00:12&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-01]&lt;/td&gt;&#34;, &#34;&lt;td&gt;746.27&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:12&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container e1c0f493014d279265aaa54f2aaa2a78ddd16903e0eb11cf4c05fb4dcf53e678, with 1 middlewares\nTransaction rate : 746.27 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-02]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-02]&#34;, &#34;duration&#34;: &#34;00:00:13&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-02]&lt;/td&gt;&#34;, &#34;&lt;td&gt;520.83&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:13&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container edbd6bdf6b6d01f778f80d50799ce48ac80a4b3dc9b2734ab825c52ea9ff8f70, with 2 middlewares\nTransaction rate : 520.83 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-03]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-03]&#34;, &#34;duration&#34;: &#34;00:00:13&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-03]&lt;/td&gt;&#34;, &#34;&lt;td&gt;414.94&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:13&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 35b1935402e27bdab2f56a15268ea0582acae18a1d6d2571580f2aaa0507fd0a, with 3 middlewares\nTransaction rate : 414.94 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-04]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-04]&#34;, &#34;duration&#34;: &#34;00:00:14&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-04]&lt;/td&gt;&#34;, &#34;&lt;td&gt;327.87&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:14&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container fcbd8c03b36fd742c640c35a9c935956bfd784527c5ab108707c372ff2eb623e, with 4 middlewares\nTransaction rate : 327.87 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-05]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-05]&#34;, &#34;duration&#34;: &#34;00:00:15&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-05]&lt;/td&gt;&#34;, &#34;&lt;td&gt;273.22&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:15&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 4220576e2781b186dbdf8284da7e10ef85fd52be4c8881dd956d9aff504a2367, with 5 middlewares\nTransaction rate : 273.22 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-06]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-06]&#34;, &#34;duration&#34;: &#34;00:00:15&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-06]&lt;/td&gt;&#34;, &#34;&lt;td&gt;222.22&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:15&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 3445e006efa0b280540ab9bf177f56ebcd2255c25b3582d38d1f8b5809f66a65, with 6 middlewares\nTransaction rate : 222.22 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-07]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-07]&#34;, &#34;duration&#34;: &#34;00:00:16&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-07]&lt;/td&gt;&#34;, &#34;&lt;td&gt;189.04&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:16&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container cf0df9ef0d68748d063bbf1ad02c92eade102affc6d284c640616144e85d9316, with 7 middlewares\nTransaction rate : 189.04 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-08]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-08]&#34;, &#34;duration&#34;: &#34;00:00:17&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-08]&lt;/td&gt;&#34;, &#34;&lt;td&gt;173.61&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:17&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container d0b17bbbf2ecd7b4d6cac9bd317ac98becd94b26ac7df35676c1ff6db4314551, with 8 middlewares\nTransaction rate : 173.61 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-09]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-09]&#34;, &#34;duration&#34;: &#34;00:00:17&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-09]&lt;/td&gt;&#34;, &#34;&lt;td&gt;154.08&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:17&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 6745a582033aa2965860ec4cdfbb74a95ca8a8c244d961ad8aeb373d31a95f07, with 9 middlewares\nTransaction rate : 154.08 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-10]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-10]&#34;, &#34;duration&#34;: &#34;00:00:18&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-10]&lt;/td&gt;&#34;, &#34;&lt;td&gt;128.21&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:18&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 6298b398f350cb2506f8475704b3e6836f1615cccc770672477862e1a3e48b72, with 10 middlewares\nTransaction rate : 128.21 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-11]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-11]&#34;, &#34;duration&#34;: &#34;00:00:20&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-11]&lt;/td&gt;&#34;, &#34;&lt;td&gt;119.62&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:20&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container ae1f140dcddefcc2aadcfe6acbfad8576fc4ec30a80183718eb01bd964fdc854, with 11 middlewares\nTransaction rate : 119.62 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-12]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-12]&#34;, &#34;duration&#34;: &#34;00:00:20&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-12]&lt;/td&gt;&#34;, &#34;&lt;td&gt;106.72&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:20&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 46e97f987a6ee2b17a1962c3b32c3a4025d1bb9194ea447aa67eaacc7c34ba92, with 12 middlewares\nTransaction rate : 106.72 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-13]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-13]&#34;, &#34;duration&#34;: &#34;00:00:20&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-13]&lt;/td&gt;&#34;, &#34;&lt;td&gt;97.75&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:20&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 96303c711088bf1ac0c878ccc7248d18cf35699fd3ad738d445e6ace156394f7, with 13 middlewares\nTransaction rate : 97.75 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-14]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-14]&#34;, &#34;duration&#34;: &#34;00:00:21&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-14]&lt;/td&gt;&#34;, &#34;&lt;td&gt;87.11&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:21&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container b77f1ae9a82f6bf880358073e80fa2b72ee043f2e2551b607b02c6a69beb903c, with 14 middlewares\nTransaction rate : 87.11 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-15]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-15]&#34;, &#34;duration&#34;: &#34;00:00:22&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-15]&lt;/td&gt;&#34;, &#34;&lt;td&gt;79.62&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:22&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 8df0d8435b860f544370d219a0865bad6721a6c11f5fcc79eca1805dfe6cd443, with 15 middlewares\nTransaction rate : 79.62 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-16]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-16]&#34;, &#34;duration&#34;: &#34;00:00:23&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-16]&lt;/td&gt;&#34;, &#34;&lt;td&gt;73.37&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:23&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container b32193246af230d94be8d3488a99a5d83f2637a1b32d349b78ab3385e7a90a41, with 16 middlewares\nTransaction rate : 73.37 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-17]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-17]&#34;, &#34;duration&#34;: &#34;00:00:25&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-17]&lt;/td&gt;&#34;, &#34;&lt;td&gt;66.31&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:25&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 9e302bc48077949487c1662b33d8ae1d3e756d4bcafa66513e93ddb95a763b06, with 17 middlewares\nTransaction rate : 66.31 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-18]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-18]&#34;, &#34;duration&#34;: &#34;00:00:26&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-18]&lt;/td&gt;&#34;, &#34;&lt;td&gt;61.92&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:26&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 6de33d7a5dfcccfc4f528bed29c12df7785c87914c1e83ffa610a2d136d0f18a, with 18 middlewares\nTransaction rate : 61.92 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-19]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-19]&#34;, &#34;duration&#34;: &#34;00:00:27&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-19]&lt;/td&gt;&#34;, &#34;&lt;td&gt;56.4&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:27&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 781cd6bc4efe84db270644da38c9266adcbc137982f8e2f9964ebbc27ec63807, with 19 middlewares\nTransaction rate : 56.4 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-20]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-20]&#34;, &#34;duration&#34;: &#34;00:00:29&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-20]&lt;/td&gt;&#34;, &#34;&lt;td&gt;52.27&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:29&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 1268aee47a3548643e349bc9a0b435c8172e8e8efaebcace440c17309236c618, with 20 middlewares\nTransaction rate : 52.27 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-21]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-21]&#34;, &#34;duration&#34;: &#34;00:00:31&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-21]&lt;/td&gt;&#34;, &#34;&lt;td&gt;49.21&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:31&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 447822f84fbb872fd36b7d679a3175ee67f59dc3adedf533dc65e1a9187c0cea, with 21 middlewares\nTransaction rate : 49.21 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-22]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-22]&#34;, &#34;duration&#34;: &#34;00:00:32&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-22]&lt;/td&gt;&#34;, &#34;&lt;td&gt;45.07&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:32&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container b6adeb7207d5109dc8c5d5c507accbacd210df1654dfba1d2878964209c065cc, with 22 middlewares\nTransaction rate : 45.07 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-23]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-23]&#34;, &#34;duration&#34;: &#34;00:00:33&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-23]&lt;/td&gt;&#34;, &#34;&lt;td&gt;42.48&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:33&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container 4f036e0ba3df565d0c1bb3010a1b01096f71a42106c4cbdb98bce8003562a4d0, with 23 middlewares\nTransaction rate : 42.48 r/s\n&#34;}], &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-24]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-24]&#34;, &#34;duration&#34;: &#34;00:00:35&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_perf.py::test_perf[{&#39;python&#39;: &#39;3.12.1&#39;, &#39;starlette&#39;: &#39;0.34.0&#39;, &#39;uvicorn&#39;: &#39;0.25.0&#39;}-middlewares-24]&lt;/td&gt;&#34;, &#34;&lt;td&gt;39.4&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:35&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stdout call -----------------------------\nstarting container cb575ff87073b66190aa81d34d9610f32d91d94907f5db92679f600a30890f38, with 24 middlewares\nTransaction rate : 39.4 r/s\n&#34;}]}, &#34;renderCollapsed&#34;: [&#34;passed&#34;], &#34;initialSort&#34;: &#34;original&#34;, &#34;title&#34;: &#34;Starlette performance report&#34;}"></div>
+    <script>
+      (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const { getCollapsedCategory, setCollapsedIds } = require('./storage.js')
+
+class DataManager {
+    setManager(data) {
+        const collapsedCategories = [...getCollapsedCategory(data.renderCollapsed)]
+        const collapsedIds = []
+        const tests = Object.values(data.tests).flat().map((test, index) => {
+            const collapsed = collapsedCategories.includes(test.result.toLowerCase())
+            const id = `test_${index}`
+            if (collapsed) {
+                collapsedIds.push(id)
+            }
+            return {
+                ...test,
+                id,
+                collapsed,
+            }
+        })
+        const dataBlob = { ...data, tests }
+        this.data = { ...dataBlob }
+        this.renderData = { ...dataBlob }
+        setCollapsedIds(collapsedIds)
+    }
+
+    get allData() {
+        return { ...this.data }
+    }
+
+    resetRender() {
+        this.renderData = { ...this.data }
+    }
+
+    setRender(data) {
+        this.renderData.tests = [...data]
+    }
+
+    toggleCollapsedItem(id) {
+        this.renderData.tests = this.renderData.tests.map((test) =>
+            test.id === id ? { ...test, collapsed: !test.collapsed } : test,
+        )
+    }
+
+    set allCollapsed(collapsed) {
+        this.renderData = { ...this.renderData, tests: [...this.renderData.tests.map((test) => (
+            { ...test, collapsed }
+        ))] }
+    }
+
+    get testSubset() {
+        return [...this.renderData.tests]
+    }
+
+    get environment() {
+        return this.renderData.environment
+    }
+
+    get initialSort() {
+        return this.data.initialSort
+    }
+}
+
+module.exports = {
+    manager: new DataManager(),
+}
+
+},{"./storage.js":8}],2:[function(require,module,exports){
+const mediaViewer = require('./mediaviewer.js')
+const templateEnvRow = document.getElementById('template_environment_row')
+const templateResult = document.getElementById('template_results-table__tbody')
+
+function htmlToElements(html) {
+    const temp = document.createElement('template')
+    temp.innerHTML = html
+    return temp.content.childNodes
+}
+
+const find = (selector, elem) => {
+    if (!elem) {
+        elem = document
+    }
+    return elem.querySelector(selector)
+}
+
+const findAll = (selector, elem) => {
+    if (!elem) {
+        elem = document
+    }
+    return [...elem.querySelectorAll(selector)]
+}
+
+const dom = {
+    getStaticRow: (key, value) => {
+        const envRow = templateEnvRow.content.cloneNode(true)
+        const isObj = typeof value === 'object' && value !== null
+        const values = isObj ? Object.keys(value).map((k) => `${k}: ${value[k]}`) : null
+
+        const valuesElement = htmlToElements(
+            values ? `<ul>${values.map((val) => `<li>${val}</li>`).join('')}<ul>` : `<div>${value}</div>`)[0]
+        const td = findAll('td', envRow)
+        td[0].textContent = key
+        td[1].appendChild(valuesElement)
+
+        return envRow
+    },
+    getResultTBody: ({ testId, id, log, extras, resultsTableRow, tableHtml, result, collapsed }) => {
+        const resultBody = templateResult.content.cloneNode(true)
+        resultBody.querySelector('tbody').classList.add(result.toLowerCase())
+        resultBody.querySelector('tbody').id = testId
+        resultBody.querySelector('.collapsible').dataset.id = id
+
+        resultsTableRow.forEach((html) => {
+            const t = document.createElement('template')
+            t.innerHTML = html
+            resultBody.querySelector('.collapsible').appendChild(t.content)
+        })
+
+        if (log) {
+            // Wrap lines starting with "E" with span.error to color those lines red
+            const wrappedLog = log.replace(/^E.*$/gm, (match) => `<span class="error">${match}</span>`)
+            resultBody.querySelector('.log').innerHTML = wrappedLog
+        } else {
+            resultBody.querySelector('.log').remove()
+        }
+
+        if (collapsed) {
+            resultBody.querySelector('.collapsible > td')?.classList.add('collapsed')
+            resultBody.querySelector('.extras-row').classList.add('hidden')
+        } else {
+            resultBody.querySelector('.collapsible > td')?.classList.remove('collapsed')
+        }
+
+        const media = []
+        extras?.forEach(({ name, format_type, content }) => {
+            if (['image', 'video'].includes(format_type)) {
+                media.push({ path: content, name, format_type })
+            }
+
+            if (format_type === 'html') {
+                resultBody.querySelector('.extraHTML').insertAdjacentHTML('beforeend', `<div>${content}</div>`)
+            }
+        })
+        mediaViewer.setup(resultBody, media)
+
+        // Add custom html from the pytest_html_results_table_html hook
+        tableHtml?.forEach((item) => {
+            resultBody.querySelector('td[class="extra"]').insertAdjacentHTML('beforeend', item)
+        })
+
+        return resultBody
+    },
+}
+
+module.exports = {
+    dom,
+    htmlToElements,
+    find,
+    findAll,
+}
+
+},{"./mediaviewer.js":6}],3:[function(require,module,exports){
+const { manager } = require('./datamanager.js')
+const { doSort } = require('./sort.js')
+const storageModule = require('./storage.js')
+
+const getFilteredSubSet = (filter) =>
+    manager.allData.tests.filter(({ result }) => filter.includes(result.toLowerCase()))
+
+const doInitFilter = () => {
+    const currentFilter = storageModule.getVisible()
+    const filteredSubset = getFilteredSubSet(currentFilter)
+    manager.setRender(filteredSubset)
+}
+
+const doFilter = (type, show) => {
+    if (show) {
+        storageModule.showCategory(type)
+    } else {
+        storageModule.hideCategory(type)
+    }
+
+    const currentFilter = storageModule.getVisible()
+    const filteredSubset = getFilteredSubSet(currentFilter)
+    manager.setRender(filteredSubset)
+
+    const sortColumn = storageModule.getSort()
+    doSort(sortColumn, true)
+}
+
+module.exports = {
+    doFilter,
+    doInitFilter,
+}
+
+},{"./datamanager.js":1,"./sort.js":7,"./storage.js":8}],4:[function(require,module,exports){
+const { redraw, bindEvents, renderStatic } = require('./main.js')
+const { doInitFilter } = require('./filter.js')
+const { doInitSort } = require('./sort.js')
+const { manager } = require('./datamanager.js')
+const data = JSON.parse(document.getElementById('data-container').dataset.jsonblob)
+
+function init() {
+    manager.setManager(data)
+    doInitFilter()
+    doInitSort()
+    renderStatic()
+    redraw()
+    bindEvents()
+}
+
+init()
+
+},{"./datamanager.js":1,"./filter.js":3,"./main.js":5,"./sort.js":7}],5:[function(require,module,exports){
+const { dom, find, findAll } = require('./dom.js')
+const { manager } = require('./datamanager.js')
+const { doSort } = require('./sort.js')
+const { doFilter } = require('./filter.js')
+const {
+    getVisible,
+    getCollapsedIds,
+    setCollapsedIds,
+    getSort,
+    getSortDirection,
+    possibleFilters,
+} = require('./storage.js')
+
+const removeChildren = (node) => {
+    while (node.firstChild) {
+        node.removeChild(node.firstChild)
+    }
+}
+
+const renderStatic = () => {
+    const renderEnvironmentTable = () => {
+        const environment = manager.environment
+        const rows = Object.keys(environment).map((key) => dom.getStaticRow(key, environment[key]))
+        const table = document.getElementById('environment')
+        removeChildren(table)
+        rows.forEach((row) => table.appendChild(row))
+    }
+    renderEnvironmentTable()
+}
+
+const addItemToggleListener = (elem) => {
+    elem.addEventListener('click', ({ target }) => {
+        const id = target.parentElement.dataset.id
+        manager.toggleCollapsedItem(id)
+
+        const collapsedIds = getCollapsedIds()
+        if (collapsedIds.includes(id)) {
+            const updated = collapsedIds.filter((item) => item !== id)
+            setCollapsedIds(updated)
+        } else {
+            collapsedIds.push(id)
+            setCollapsedIds(collapsedIds)
+        }
+        redraw()
+    })
+}
+
+const renderContent = (tests) => {
+    const sortAttr = getSort(manager.initialSort)
+    const sortAsc = JSON.parse(getSortDirection())
+    const rows = tests.map(dom.getResultTBody)
+    const table = document.getElementById('results-table')
+    const tableHeader = document.getElementById('results-table-head')
+
+    const newTable = document.createElement('table')
+    newTable.id = 'results-table'
+
+    // remove all sorting classes and set the relevant
+    findAll('.sortable', tableHeader).forEach((elem) => elem.classList.remove('asc', 'desc'))
+    tableHeader.querySelector(`.sortable[data-column-type="${sortAttr}"]`)?.classList.add(sortAsc ? 'desc' : 'asc')
+    newTable.appendChild(tableHeader)
+
+    if (!rows.length) {
+        const emptyTable = document.getElementById('template_results-table__body--empty').content.cloneNode(true)
+        newTable.appendChild(emptyTable)
+    } else {
+        rows.forEach((row) => {
+            if (!!row) {
+                findAll('.collapsible td:not(.col-links', row).forEach(addItemToggleListener)
+                find('.logexpander', row).addEventListener('click',
+                    (evt) => evt.target.parentNode.classList.toggle('expanded'),
+                )
+                newTable.appendChild(row)
+            }
+        })
+    }
+
+    table.replaceWith(newTable)
+}
+
+const renderDerived = () => {
+    const currentFilter = getVisible()
+    possibleFilters.forEach((result) => {
+        const input = document.querySelector(`input[data-test-result="${result}"]`)
+        input.checked = currentFilter.includes(result)
+    })
+}
+
+const bindEvents = () => {
+    const filterColumn = (evt) => {
+        const { target: element } = evt
+        const { testResult } = element.dataset
+
+        doFilter(testResult, element.checked)
+        const collapsedIds = getCollapsedIds()
+        const updated = manager.renderData.tests.map((test) => {
+            return {
+                ...test,
+                collapsed: collapsedIds.includes(test.id),
+            }
+        })
+        manager.setRender(updated)
+        redraw()
+    }
+
+    const header = document.getElementById('environment-header')
+    header.addEventListener('click', () => {
+        const table = document.getElementById('environment')
+        table.classList.toggle('hidden')
+        header.classList.toggle('collapsed')
+    })
+
+    findAll('input[name="filter_checkbox"]').forEach((elem) => {
+        elem.addEventListener('click', filterColumn)
+    })
+
+    findAll('.sortable').forEach((elem) => {
+        elem.addEventListener('click', (evt) => {
+            const { target: element } = evt
+            const { columnType } = element.dataset
+            doSort(columnType)
+            redraw()
+        })
+    })
+
+    document.getElementById('show_all_details').addEventListener('click', () => {
+        manager.allCollapsed = false
+        setCollapsedIds([])
+        redraw()
+    })
+    document.getElementById('hide_all_details').addEventListener('click', () => {
+        manager.allCollapsed = true
+        const allIds = manager.renderData.tests.map((test) => test.id)
+        setCollapsedIds(allIds)
+        redraw()
+    })
+}
+
+const redraw = () => {
+    const { testSubset } = manager
+
+    renderContent(testSubset)
+    renderDerived()
+}
+
+module.exports = {
+    redraw,
+    bindEvents,
+    renderStatic,
+}
+
+},{"./datamanager.js":1,"./dom.js":2,"./filter.js":3,"./sort.js":7,"./storage.js":8}],6:[function(require,module,exports){
+class MediaViewer {
+    constructor(assets) {
+        this.assets = assets
+        this.index = 0
+    }
+
+    nextActive() {
+        this.index = this.index === this.assets.length - 1 ? 0 : this.index + 1
+        return [this.activeFile, this.index]
+    }
+
+    prevActive() {
+        this.index = this.index === 0 ? this.assets.length - 1 : this.index -1
+        return [this.activeFile, this.index]
+    }
+
+    get currentIndex() {
+        return this.index
+    }
+
+    get activeFile() {
+        return this.assets[this.index]
+    }
+}
+
+
+const setup = (resultBody, assets) => {
+    if (!assets.length) {
+        resultBody.querySelector('.media').classList.add('hidden')
+        return
+    }
+
+    const mediaViewer = new MediaViewer(assets)
+    const container = resultBody.querySelector('.media-container')
+    const leftArrow = resultBody.querySelector('.media-container__nav--left')
+    const rightArrow = resultBody.querySelector('.media-container__nav--right')
+    const mediaName = resultBody.querySelector('.media__name')
+    const counter = resultBody.querySelector('.media__counter')
+    const imageEl = resultBody.querySelector('img')
+    const sourceEl = resultBody.querySelector('source')
+    const videoEl = resultBody.querySelector('video')
+
+    const setImg = (media, index) => {
+        if (media?.format_type === 'image') {
+            imageEl.src = media.path
+
+            imageEl.classList.remove('hidden')
+            videoEl.classList.add('hidden')
+        } else if (media?.format_type === 'video') {
+            sourceEl.src = media.path
+
+            videoEl.classList.remove('hidden')
+            imageEl.classList.add('hidden')
+        }
+
+        mediaName.innerText = media?.name
+        counter.innerText = `${index + 1} / ${assets.length}`
+    }
+    setImg(mediaViewer.activeFile, mediaViewer.currentIndex)
+
+    const moveLeft = () => {
+        const [media, index] = mediaViewer.prevActive()
+        setImg(media, index)
+    }
+    const doRight = () => {
+        const [media, index] = mediaViewer.nextActive()
+        setImg(media, index)
+    }
+    const openImg = () => {
+        window.open(mediaViewer.activeFile.path, '_blank')
+    }
+    if (assets.length === 1) {
+        container.classList.add('media-container--fullscreen')
+    } else {
+        leftArrow.addEventListener('click', moveLeft)
+        rightArrow.addEventListener('click', doRight)
+    }
+    imageEl.addEventListener('click', openImg)
+}
+
+module.exports = {
+    setup,
+}
+
+},{}],7:[function(require,module,exports){
+const { manager } = require('./datamanager.js')
+const storageModule = require('./storage.js')
+
+const genericSort = (list, key, ascending, customOrder) => {
+    let sorted
+    if (customOrder) {
+        sorted = list.sort((a, b) => {
+            const aValue = a.result.toLowerCase()
+            const bValue = b.result.toLowerCase()
+
+            const aIndex = customOrder.findIndex((item) => item.toLowerCase() === aValue)
+            const bIndex = customOrder.findIndex((item) => item.toLowerCase() === bValue)
+
+            // Compare the indices to determine the sort order
+            return aIndex - bIndex
+        })
+    } else {
+        sorted = list.sort((a, b) => a[key] === b[key] ? 0 : a[key] > b[key] ? 1 : -1)
+    }
+
+    if (ascending) {
+        sorted.reverse()
+    }
+    return sorted
+}
+
+const durationSort = (list, ascending) => {
+    const parseDuration = (duration) => {
+        if (duration.includes(':')) {
+            // If it's in the format "HH:mm:ss"
+            const [hours, minutes, seconds] = duration.split(':').map(Number)
+            return (hours * 3600 + minutes * 60 + seconds) * 1000
+        } else {
+            // If it's in the format "nnn ms"
+            return parseInt(duration)
+        }
+    }
+    const sorted = list.sort((a, b) => parseDuration(a['duration']) - parseDuration(b['duration']))
+    if (ascending) {
+        sorted.reverse()
+    }
+    return sorted
+}
+
+const doInitSort = () => {
+    const type = storageModule.getSort(manager.initialSort)
+    const ascending = storageModule.getSortDirection()
+    const list = manager.testSubset
+    const initialOrder = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed', 'Skipped', 'Passed']
+
+    storageModule.setSort(type)
+    storageModule.setSortDirection(ascending)
+
+    if (type?.toLowerCase() === 'original') {
+        manager.setRender(list)
+    } else {
+        let sortedList
+        switch (type) {
+        case 'duration':
+            sortedList = durationSort(list, ascending)
+            break
+        case 'result':
+            sortedList = genericSort(list, type, ascending, initialOrder)
+            break
+        default:
+            sortedList = genericSort(list, type, ascending)
+            break
+        }
+        manager.setRender(sortedList)
+    }
+}
+
+const doSort = (type, skipDirection) => {
+    const newSortType = storageModule.getSort(manager.initialSort) !== type
+    const currentAsc = storageModule.getSortDirection()
+    let ascending
+    if (skipDirection) {
+        ascending = currentAsc
+    } else {
+        ascending = newSortType ? false : !currentAsc
+    }
+    storageModule.setSort(type)
+    storageModule.setSortDirection(ascending)
+
+    const list = manager.testSubset
+    const sortedList = type === 'duration' ? durationSort(list, ascending) : genericSort(list, type, ascending)
+    manager.setRender(sortedList)
+}
+
+module.exports = {
+    doInitSort,
+    doSort,
+}
+
+},{"./datamanager.js":1,"./storage.js":8}],8:[function(require,module,exports){
+const possibleFilters = [
+    'passed',
+    'skipped',
+    'failed',
+    'error',
+    'xfailed',
+    'xpassed',
+    'rerun',
+]
+
+const getVisible = () => {
+    const url = new URL(window.location.href)
+    const settings = new URLSearchParams(url.search).get('visible')
+    const lower = (item) => {
+        const lowerItem = item.toLowerCase()
+        if (possibleFilters.includes(lowerItem)) {
+            return lowerItem
+        }
+        return null
+    }
+    return settings === null ?
+        possibleFilters :
+        [...new Set(settings?.split(',').map(lower).filter((item) => item))]
+}
+
+const hideCategory = (categoryToHide) => {
+    const url = new URL(window.location.href)
+    const visibleParams = new URLSearchParams(url.search).get('visible')
+    const currentVisible = visibleParams ? visibleParams.split(',') : [...possibleFilters]
+    const settings = [...new Set(currentVisible)].filter((f) => f !== categoryToHide).join(',')
+
+    url.searchParams.set('visible', settings)
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const showCategory = (categoryToShow) => {
+    if (typeof window === 'undefined') {
+        return
+    }
+    const url = new URL(window.location.href)
+    const currentVisible = new URLSearchParams(url.search).get('visible')?.split(',').filter(Boolean) ||
+        [...possibleFilters]
+    const settings = [...new Set([categoryToShow, ...currentVisible])]
+    const noFilter = possibleFilters.length === settings.length || !settings.length
+
+    noFilter ? url.searchParams.delete('visible') : url.searchParams.set('visible', settings.join(','))
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const getSort = (initialSort) => {
+    const url = new URL(window.location.href)
+    let sort = new URLSearchParams(url.search).get('sort')
+    if (!sort) {
+        sort = initialSort || 'result'
+    }
+    return sort
+}
+
+const setSort = (type) => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('sort', type)
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const getCollapsedCategory = (renderCollapsed) => {
+    let categories
+    if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href)
+        const collapsedItems = new URLSearchParams(url.search).get('collapsed')
+        switch (true) {
+        case !renderCollapsed && collapsedItems === null:
+            categories = ['passed']
+            break
+        case collapsedItems?.length === 0 || /^["']{2}$/.test(collapsedItems):
+            categories = []
+            break
+        case /^all$/.test(collapsedItems) || collapsedItems === null && /^all$/.test(renderCollapsed):
+            categories = [...possibleFilters]
+            break
+        default:
+            categories = collapsedItems?.split(',').map((item) => item.toLowerCase()) || renderCollapsed
+            break
+        }
+    } else {
+        categories = []
+    }
+    return categories
+}
+
+const getSortDirection = () => JSON.parse(sessionStorage.getItem('sortAsc')) || false
+const setSortDirection = (ascending) => sessionStorage.setItem('sortAsc', ascending)
+
+const getCollapsedIds = () => JSON.parse(sessionStorage.getItem('collapsedIds')) || []
+const setCollapsedIds = (list) => sessionStorage.setItem('collapsedIds', JSON.stringify(list))
+
+module.exports = {
+    getVisible,
+    hideCategory,
+    showCategory,
+    getCollapsedIds,
+    setCollapsedIds,
+    getSort,
+    setSort,
+    getSortDirection,
+    setSortDirection,
+    getCollapsedCategory,
+    possibleFilters,
+}
+
+},{}]},{},[4]);
+    </script>
+  </footer>
+</html>

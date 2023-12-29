@@ -1,8 +1,7 @@
 import sys
 
 from litestar import Litestar, get
-from litestar.middleware import AbstractMiddleware
-from litestar.types import Scope, Receive, Send, ASGIApp
+from litestar.types import Scope, Receive, Send, ASGIApp, Message
 
 # Default value for middleware count
 MIDDLEWARE_COUNT = 1
@@ -19,11 +18,18 @@ print("Middlewares to setup: " + str(MIDDLEWARE_COUNT))
 
 def middleware_factory(app: ASGIApp) -> ASGIApp:
     async def my_middleware(scope: Scope, receive: Receive, send: Send) -> None:
-        # do something here
-        ...
-        await app(scope, receive, send)
+        if scope['type'] == 'http':
+            original_send = send
+            async def send_wrapper(message: Message) -> None:
+                if message['type'] == 'http.response.start':
+                    message['status'] += 1
+                await original_send(message)
+            await app(scope, receive, send_wrapper)
+        else:
+            await app(scope, receive, send)
 
     return my_middleware
+
 @get("/_ping")
 async def ping() -> str:
     return "pong"

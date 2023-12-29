@@ -1,7 +1,4 @@
-import json
-import resource
 import sys
-from pathlib import Path
 
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
@@ -10,7 +7,7 @@ from starlette.middleware.base import (
     RequestResponseEndpoint,
 )
 from starlette.requests import Request
-from starlette.responses import PlainTextResponse, JSONResponse, FileResponse
+from starlette.responses import PlainTextResponse
 from starlette.routing import Route
 
 # Default value for middleware count
@@ -29,7 +26,9 @@ print("Middlewares to setup: " + str(MIDDLEWARE_COUNT))
 
 class TestMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, req: Request, call_next: RequestResponseEndpoint):
-        return await call_next(req)
+        response = await call_next(req)
+        response.status_code += 1
+        return response
 
 
 async def ping(request):

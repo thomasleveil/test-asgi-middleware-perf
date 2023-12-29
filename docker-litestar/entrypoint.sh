@@ -8,7 +8,7 @@ repetitions=$(( num_queries / threads ))
 echo -----------------------------------------
 echo "number of middlewares : ${num_middleware:?}"
 python --version
-pip list | grep -i starlette
+pip list | grep -i litestar
 pip list | grep -i uvicorn
 echo -----------------------------------------
 
@@ -18,5 +18,6 @@ siege -r $repetitions -c $threads http://127.0.0.1:14000/_ping 2>&1
 echo -----------------------------------------
 echo "number of middlewares : $num_middleware"
 python --version
-pip list | grep -i starlette
+pip list | grep -i litestar
 pip list | grep -i uvicorn
+echo "EndOfLog"

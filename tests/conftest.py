@@ -1,43 +1,56 @@
+from collections import defaultdict
 from pathlib import Path
+from typing import Any
 
 import matplotlib.pyplot as plt
 import pytest
 
 
-def get_transaction_rate_from_item(item: pytest.Item) -> float | None:
+def get_custom_property(item: pytest.Item, prop_name: str) -> Any:
     return next(
         (
             property_value
             for property_name, property_value in item.user_properties
-            if property_name == 'transaction_rate'
+            if property_name == prop_name
         )
         , None
     )
 
 
-def plot_and_save_data(data_x: list, data_y: list, output_image_path, graph_title):
+def get_serie_from_item(item: pytest.Item) -> float | None:
+    return get_custom_property(item, "serie")
+
+
+def get_transaction_rate_from_item(item: pytest.Item) -> float | None:
+    return get_custom_property(item, "transaction_rate")
+
+
+def plot_and_save_data(series: dict[str, tuple[list, list]], output_image_path, graph_title):
     plt.figure(figsize=(10, 6))
-    plt.plot(data_x, data_y, marker="o")
+    for serie_label, (serie_x, serie_y) in series.items():
+        plt.plot(serie_x, serie_y, marker="o", label=serie_label)
     plt.title(graph_title)
     plt.xlabel("Number of middlewares")
     plt.ylabel("Transaction rate (r/s)")
     plt.grid(True)
-
+    plt.legend()
     # Save the plot to a file
     plt.savefig(output_image_path)
     plt.close()
 
 
 def pytest_sessionfinish(session, exitstatus):
+    series = defaultdict(lambda: (list(), list()))
+
+    for item in session.items:
+        serie_name = get_serie_from_item(item)
+        num_middlewares = item.callspec.params['num_middleware']
+        transaction_rate = get_transaction_rate_from_item(item)
+        series[serie_name][0].append(num_middlewares)
+        series[serie_name][1].append(transaction_rate)
+
     plot_and_save_data(
-        data_x=[
-            item.callspec.params['num_middleware']
-            for item in session.items
-        ],
-        data_y=[
-            get_transaction_rate_from_item(item)
-            for item in session.items
-        ],
+        series=series,
         output_image_path=Path(__file__).parent / '../test_results/summary.png',
         graph_title='Performances vs number of middlewares',
     )

@@ -14,10 +14,6 @@ RUN --mount=type=cache,target=/var/cache/apt \
             curl \
             siege
 
-RUN --mount=type=cache,target=/root/.cache \
-    pip install \
-        requests
-
 
 ARG UVICORN_VERSION=0.18.3
 LABEL UVICORN_VERSION=${UVICORN_VERSION:?}
@@ -34,10 +30,10 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 
 FROM base
-ARG STARLETTE_VERSION
-LABEL STARLETTE_VERSION=${STARLETTE_VERSION:?}
-RUN echo "installing starlette ${STARLETTE_VERSION}"
+ARG LITESTAR_VERSION
+LABEL LITESTAR_VERSION=${LITESTAR_VERSION:?}
+RUN echo "installing Litestar ${LITESTAR_VERSION}"
 RUN --mount=type=cache,target=/root/.cache \
-    pip install STARLETTE==${STARLETTE_VERSION}
+    pip install litestar==${LITESTAR_VERSION}
 
 

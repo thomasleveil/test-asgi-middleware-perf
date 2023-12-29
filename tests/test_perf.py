@@ -1,41 +1,97 @@
 import logging
 import re
 import time
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
 import pytest
-from python_on_whales import DockerClient
-
-####################################################
-num_queries = 1_000
-num_middleware = range(25)
-test_matrix = [
-    {
-        "python": "3.12.1",
-        "starlette": "0.34.0",
-        "uvicorn": "0.25.0",
-    },
-    # {
-    #     "python": "3.13.0a2",
-    #     "starlette": "0.34.0",
-    #     "uvicorn": "0.25.0",
-    # },
-]
-
-####################################################
+from python_on_whales import DockerClient, Image
 
 now = datetime.now()
-dockerfile = Path(__file__).parent / "../docker/Dockerfile"
 docker = DockerClient()
 
 docker_images_cache = {}
 
 
-def build_image(context_path, python_version, starlette_version, uvicorn_version):
-    key = f"p{python_version}-u{uvicorn_version}-s{starlette_version}"
-    if key in docker_images_cache:
-        return docker_images_cache[key]
+@dataclass
+class ServerEnv:
+    python: str
+    uvicorn: str
+
+    @property
+    def key(self) -> str:
+        raise NotImplementedError()
+
+    def get_docker_image(self) -> Image:
+        raise NotImplementedError()
+
+
+@dataclass
+class StarletteServerEnv(ServerEnv):
+    starlette: str
+
+    @property
+    def key(self) -> str:
+        return f"starlette_{self.starlette}_p{self.python}_u{self.uvicorn}"
+
+    def get_docker_image(self):
+        image = build_starlette_image(
+            Path(__file__).parent / "../docker-starlette",
+            python_version=self.python,
+            starlette_version=self.starlette,
+            uvicorn_version=self.uvicorn,
+        )
+        return image
+
+
+@dataclass
+class LitestarServerEnv(ServerEnv):
+    litestar: str
+
+    @property
+    def key(self) -> str:
+        return f"litestar_{self.litestar}_p{self.python}_u{self.uvicorn}"
+
+    def get_docker_image(self):
+        image = build_litestar_image(
+            Path(__file__).parent / "../docker-litestar",
+            python_version=self.python,
+            litestar_version=self.litestar,
+            uvicorn_version=self.uvicorn,
+        )
+        return image
+
+
+####################################################
+num_queries = 1_000
+num_middleware =  range(5)
+test_matrix: list[ServerEnv] = [
+    StarletteServerEnv(
+        python="3.12.1",
+        uvicorn="0.25.0",
+        starlette="0.34.0",
+    ),
+    # StarletteServerEnv(
+    #     python="3.13.0a2",
+    #     uvicorn="0.25.0",
+    #     starlette="0.34.0",
+    # ),
+    LitestarServerEnv(
+        python="3.12.1",
+        uvicorn="0.25.0",
+        litestar="2.4.5",
+    ),
+]
+
+
+####################################################
+
+
+def build_starlette_image(context_path, python_version, starlette_version, uvicorn_version) -> Image:
+    tag = f"test-starlette-perf:p{python_version}-u{uvicorn_version}-s{starlette_version}"
+    if tag in docker_images_cache:
+        return docker_images_cache[tag]
     logging.info(
         f"building image for Starlette {starlette_version} with Python {python_version} and Uvicorn {uvicorn_version}")
     image = docker.buildx.build(
@@ -48,9 +104,31 @@ def build_image(context_path, python_version, starlette_version, uvicorn_version
         cache=True,
         progress="plain",
         load=True,
-        tags=[f"test-starlette-perf:p{python_version}-u{uvicorn_version}-s{starlette_version}"],
+        tags=[tag],
     )
-    docker_images_cache[key] = image
+    docker_images_cache[tag] = image
+    return image
+
+
+def build_litestar_image(context_path, python_version, litestar_version, uvicorn_version) -> Image:
+    tag = f"test-litestar-perf:p{python_version}-u{uvicorn_version}-l{litestar_version}"
+    if tag in docker_images_cache:
+        return docker_images_cache[tag]
+    logging.info(
+        f"building image for Litestar {litestar_version} with Python {python_version} and Uvicorn {uvicorn_version}")
+    image = docker.buildx.build(
+        context_path=context_path,
+        build_args={
+            "PYTHON_VERSION": python_version,
+            "LITESTAR_VERSION": litestar_version,
+            "UVICORN_VERSION": uvicorn_version,
+        },
+        cache=True,
+        progress="plain",
+        load=True,
+        tags=[tag],
+    )
+    docker_images_cache[tag] = image
     return image
 
 
@@ -80,19 +158,11 @@ def extract_transaction_rate(raw_text):
 @pytest.mark.parametrize(
     "num_middleware", num_middleware, ids=lambda x: f"middlewares-{x:02}"
 )
-@pytest.mark.parametrize("versions", test_matrix, ids=str)
-def test_perf(record_property, extras, versions, num_middleware):
-    python_version = versions["python"]
-    starlette_version = versions["starlette"]
-    uvicorn_version = versions["uvicorn"]
-    test_id = f"s{starlette_version}_p{python_version}_u{uvicorn_version}_middleware-{num_middleware:02}"
-
-    image = build_image(
-        dockerfile.parent,
-        python_version=python_version,
-        starlette_version=starlette_version,
-        uvicorn_version=uvicorn_version,
-    )
+@pytest.mark.parametrize("server_env", test_matrix, ids=str)
+def test_perf(record_property, server_env, num_middleware: int):
+    record_property("serie", server_env.key)
+    test_id = f"{server_env.key}_middleware-{num_middleware:02}"
+    image = server_env.get_docker_image()
     assert image is not None, "Failed to build docker image"
 
     unique_dir = (
@@ -112,10 +182,14 @@ def test_perf(record_property, extras, versions, num_middleware):
     print(f"starting container {container}, with {num_middleware} middlewares")
     container.start(attach=True)
 
-    time.sleep(2)
-    logs = container.logs(timestamps=True, tail=19)
-    (unique_dir / f"{test_id}_docker.log").write_text(logs)
+    for _ in range(10):
+        time.sleep(1)
+        logs = container.logs(timestamps=True, tail=50)
+        (unique_dir / f"{test_id}_docker.log").write_text(logs)
+        if "EndOfLog" in logs:
+            break
 
     transaction_rate = extract_transaction_rate(logs)
     print(f"Transaction rate : {transaction_rate} r/s")
     record_property("transaction_rate", transaction_rate)
+    assert transaction_rate is not None

@@ -97,5 +97,5 @@ def test_perf(record_property, server_env: Type[ServerEnv], num_middleware: int)
 
     transaction_rate = extract_transaction_rate(logs)
     print(f"Transaction rate : {transaction_rate} r/s")
-    record_property("transaction_rate", transaction_rate)
     assert transaction_rate is not None
+    record_property("transaction_rate", transaction_rate)

@@ -1,57 +1,72 @@
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Type
 
 import pytest
 from python_on_whales import DockerClient
 
 from utils import extract_transaction_rate
-from utils.docker import build_docker_image
-from utils.models import *
+from utils.docker import get_docker_image
+from utils.models import AsgiServerEnv
 
 ####################################################
-num_middleware = range(16)
-test_matrix: list[ServerEnv] = [
-    StarletteServerEnv(
+num_middlewares = range(17)
+test_matrix: list[AsgiServerEnv] = [
+    AsgiServerEnv(
+        asgi_module="starlette",
+        asgi_version="0.34.0",
         python="3.12.1",
         uvicorn="0.25.0",
-        starlette="0.34.0",
+        gunicorn="21.2.0",
     ),
-    # StarletteServerEnv(
+    # AsgiServerEnv(
+    #     asgi_module="starlette",
+    #     asgi_version="0.34.0",
     #     python="3.13.0a2",
     #     uvicorn="0.25.0",
-    #     starlette="0.34.0",
+    #     gunicorn="21.2.0",
     # ),
-    BlacksheepServerEnv(
+    AsgiServerEnv(
+        asgi_module="blacksheep",
+        asgi_version="2.0.3",
         python="3.12.1",
         uvicorn="0.25.0",
-        blacksheep="2.0.3",
+        gunicorn="21.2.0",
     ),
-    FalconServerEnv(
+    AsgiServerEnv(
+        asgi_module="falcon",
+        asgi_version="3.1.3",
         python="3.12.1",
         uvicorn="0.25.0",
-        falcon="3.1.3",
+        gunicorn="21.2.0",
     ),
-    FastapiServerEnv(
+    AsgiServerEnv(
+        asgi_module="fastapi",
+        asgi_version="0.108.0",
         python="3.12.1",
         uvicorn="0.25.0",
-        fastapi="0.108.0",
+        gunicorn="21.2.0",
     ),
-    LitestarServerEnv(
+    AsgiServerEnv(
+        asgi_module="litestar",
+        asgi_version="2.4.5",
         python="3.12.1",
         uvicorn="0.25.0",
-        litestar="2.4.5",
+        gunicorn="21.2.0",
     ),
-    MuffinServerEnv(
+    AsgiServerEnv(
+        asgi_module="muffin",
+        asgi_version="0.100.1",
         python="3.12.1",
         uvicorn="0.25.0",
-        muffin="0.100.1",
+        gunicorn="21.2.0",
     ),
-    SanicServerEnv(
+    AsgiServerEnv(
+        asgi_module="sanic",
+        asgi_version="23.6.0",
         python="3.12.1",
         uvicorn="0.25.0",
-        sanic="23.6.0",
+        gunicorn="21.2.0",
     ),
 ]
 ####################################################
@@ -62,15 +77,15 @@ docker = DockerClient()
 
 @pytest.mark.flaky(max_runs=4)
 @pytest.mark.parametrize(
-    "num_middleware", num_middleware, ids=lambda x: f"middlewares-{x:02}"
+    "num_middlewares", num_middlewares, ids=lambda x: f"middlewares-{x:02}"
 )
 @pytest.mark.parametrize("server_env", test_matrix, ids=str)
-def test_perf(record_property, server_env: Type[ServerEnv], num_middleware: int):
-    record_property("serie", server_env.key)
+def test_perf(record_property, server_env: AsgiServerEnv, num_middlewares: int):
+    record_property("serie", server_env.tag)
 
-    test_id = f"{server_env.key}_middleware-{num_middleware:02}"
-    image = build_docker_image(server_env)
-    assert image is not None, "Failed to build docker image"
+    test_id = f"{server_env.tag}_middleware-{num_middlewares:02}"
+    image = get_docker_image(server_env)
+    assert image is not None, "Failed to get docker image"
 
     unique_dir = (
             Path(__file__).parent
@@ -81,14 +96,11 @@ def test_perf(record_property, server_env: Type[ServerEnv], num_middleware: int)
     container = docker.container.create(
         image=image,
         envs={
-            "NUM_MIDDLEWARES": num_middleware,
+            "NUM_MIDDLEWARES": num_middlewares,
         },
         volumes=[(str(unique_dir), "/stats")],
-        labels={
-            "num_middlewares": num_middleware,
-        },
     )
-    print(f"starting container {container}, with {num_middleware} middlewares")
+    print(f"starting container {container}, with {num_middlewares} middlewares")
     container.start(attach=True)
 
     logs = None

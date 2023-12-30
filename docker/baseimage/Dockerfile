@@ -14,6 +14,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
             curl \
             wrk
 
+
 ARG GUICORN_VERSION=21.2.0
 LABEL GUICORN_VERSION=${GUICORN_VERSION:?}
 RUN --mount=type=cache,target=/root/.cache \
@@ -27,18 +28,10 @@ RUN --mount=type=cache,target=/root/.cache \
 
 
 WORKDIR /home/root/app
-COPY server.py server.py
 
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 CMD ["/entrypoint.sh"]
 
-
-FROM base
-ARG SANIC_VERSION
-LABEL SANIC_VERSION=${SANIC_VERSION:?}
-RUN echo "installing sanic ${SANIC_VERSION}"
-RUN --mount=type=cache,target=/root/.cache \
-    pip install sanic==${SANIC_VERSION}
-
+ENV NUM_MIDDLEWARES=0
 

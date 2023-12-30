@@ -31,7 +31,7 @@ def pytest_sessionfinish(session, exitstatus):
 
     for item in session.items:
         serie_name = get_serie_from_item(item)
-        num_middlewares = item.callspec.params['num_middleware']
+        num_middlewares = item.callspec.params['num_middlewares']
         transaction_rate = get_transaction_rate_from_item(item)
         series[serie_name][0].append(num_middlewares)
         series[serie_name][1].append(transaction_rate)

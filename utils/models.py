@@ -1,62 +1,22 @@
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 
 
 @dataclass
 class ServerEnv:
     python: str
     uvicorn: str
+    gunicorn: str
 
     @property
-    def name(self) -> str:
-        return self.__class__.__name__.replace("ServerEnv", "").lower()
+    def base_image_tag(self) -> str:
+        return f"p{self.python}_g{self.gunicorn}_u{self.uvicorn}"
+
+
+@dataclass
+class AsgiServerEnv(ServerEnv):
+    asgi_module: str
+    asgi_version: str
 
     @property
-    def key(self) -> str:
-        versions = {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-        }
-        version_parts = [
-            f"u{versions.pop('uvicorn')}",
-            f"p{versions.pop('python')}"
-        ]
-        version_parts.extend([
-            f"{k[0]}{v}"
-            for k, v in versions.items()
-        ])
-        return f"{self.name}_{'_'.join(reversed(version_parts))}"
-
-
-@dataclass
-class BlacksheepServerEnv(ServerEnv):
-    blacksheep: str
-
-
-@dataclass
-class FalconServerEnv(ServerEnv):
-    falcon: str
-
-
-@dataclass
-class FastapiServerEnv(ServerEnv):
-    fastapi: str
-
-
-@dataclass
-class LitestarServerEnv(ServerEnv):
-    litestar: str
-
-
-@dataclass
-class MuffinServerEnv(ServerEnv):
-    muffin: str
-
-
-@dataclass
-class SanicServerEnv(ServerEnv):
-    sanic: str
-
-
-@dataclass
-class StarletteServerEnv(ServerEnv):
-    starlette: str
+    def tag(self) -> str:
+        return f"{self.asgi_module}_{self.asgi_version}__{self.base_image_tag}"

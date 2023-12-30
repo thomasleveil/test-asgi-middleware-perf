@@ -36,7 +36,7 @@ def plot_and_save_data(series: dict[str, tuple[list, list]], output_image_path, 
     plt.grid(True)
 
     # Place the legend below the graph
-    plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15), fancybox=True, shadow=True, ncol=2)
+    plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15), fancybox=True, shadow=True, ncol=1)
 
     # Save the plot to a file
     plt.savefig(output_image_path, bbox_inches="tight")

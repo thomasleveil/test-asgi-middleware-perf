@@ -9,7 +9,7 @@ if __name__ == '__main__':
     test_results_dir = Path(__file__).parent
 
     re_versions = re.compile(
-        r'^(?P<asgi_name>\w+)_\w(?P<asgi_version>[.\d]+)_p(?P<python_version>[.\d]+)_u(?P<uvicorn_version>[.\d]+)_middleware-(?P<middleware_number>\d+)_docker.log$')
+        r'^(?P<asgi_name>\w+)_(?P<asgi_version>[.\d]+)__p(?P<python_version>[.\d]+)_g(?P<gunicorn_version>[.\d]+)_u(?P<uvicorn_version>[.\d]+)_middleware-(?P<middleware_number>\d+)_docker.log$')
 
     for log_dir in test_results_dir.iterdir():
         if not log_dir.is_dir():
@@ -22,7 +22,7 @@ if __name__ == '__main__':
             if m is None:
                 raise ValueError("couldn't parse log file name data")
 
-            serie_name = f"{m.group('asgi_name')} {m.group('asgi_version')}, Python {m.group('python_version')}, Uvicorn {m.group('uvicorn_version')}"
+            serie_name = f"{m.group('asgi_name')} {m.group('asgi_version')}, Python {m.group('python_version')}, Gunicorn {m.group('gunicorn_version')}, Uvicorn {m.group('uvicorn_version')}"
             num_middlewares = int(m.group('middleware_number'))
 
             transaction_rate = extract_transaction_rate(log_file_path.read_text())

@@ -2,11 +2,6 @@ import sys
 
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
-from starlette.middleware.base import (
-    BaseHTTPMiddleware,
-    RequestResponseEndpoint,
-)
-from starlette.requests import Request
 from starlette.responses import PlainTextResponse
 from starlette.routing import Route
 
@@ -24,11 +19,22 @@ if len(sys.argv) > 1:
 print("Middlewares to setup: " + str(MIDDLEWARE_COUNT))
 
 
-class TestMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, req: Request, call_next: RequestResponseEndpoint):
-        response = await call_next(req)
-        response.status_code += 1
-        return response
+class ASGIMiddleware:
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        if scope['type'] == 'http':
+            original_send = send
+
+            async def send_wrapper(message) -> None:
+                if message['type'] == 'http.response.start':
+                    message['status'] += 1
+                await original_send(message)
+
+            await self.app(scope, receive, send_wrapper)
+        else:
+            await self.app(scope, receive, send)
 
 
 async def ping(request):
@@ -39,7 +45,7 @@ app = Starlette(
     routes=[
         Route("/_ping", endpoint=ping),
     ],
-    middleware=[Middleware(TestMiddleware)] * MIDDLEWARE_COUNT,
+    middleware=[Middleware(ASGIMiddleware)] * MIDDLEWARE_COUNT,
 )
 
 if __name__ == "__main__":

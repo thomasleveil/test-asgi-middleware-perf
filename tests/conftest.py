@@ -2,8 +2,9 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-import matplotlib.pyplot as plt
 import pytest
+
+from utils import plot_and_save_data
 
 
 def get_custom_property(item: pytest.Item, prop_name: str) -> Any:
@@ -23,20 +24,6 @@ def get_serie_from_item(item: pytest.Item) -> float | None:
 
 def get_transaction_rate_from_item(item: pytest.Item) -> float | None:
     return get_custom_property(item, "transaction_rate")
-
-
-def plot_and_save_data(series: dict[str, tuple[list, list]], output_image_path, graph_title):
-    plt.figure(figsize=(10, 6))
-    for serie_label, (serie_x, serie_y) in series.items():
-        plt.plot(serie_x, serie_y, marker="o", label=serie_label)
-    plt.title(graph_title)
-    plt.xlabel("Number of middlewares")
-    plt.ylabel("Transaction rate (r/s)")
-    plt.grid(True)
-    plt.legend()
-    # Save the plot to a file
-    plt.savefig(output_image_path)
-    plt.close()
 
 
 def pytest_sessionfinish(session, exitstatus):

@@ -4,17 +4,16 @@ from pathlib import Path
 from typing import Type
 
 import pytest
-from flaky import flaky
 from python_on_whales import DockerClient
 
 from utils import extract_transaction_rate
 from utils.docker import build_docker_image
 from utils.models import ServerEnv, StarletteServerEnv, LitestarServerEnv, BlacksheepServerEnv, SanicServerEnv, \
-    MuffinServerEnv, FalconServerEnv
+    MuffinServerEnv, FalconServerEnv, FastapiServerEnv
 
 ####################################################
 num_queries = 5_000
-num_middleware = range(15)
+num_middleware = range(9)
 test_matrix: list[ServerEnv] = [
     StarletteServerEnv(
         python="3.12.1",
@@ -35,6 +34,11 @@ test_matrix: list[ServerEnv] = [
         python="3.12.1",
         uvicorn="0.25.0",
         falcon="3.1.3",
+    ),
+    FastapiServerEnv(
+        python="3.12.1",
+        uvicorn="0.25.0",
+        fastapi="0.108.0",
     ),
     LitestarServerEnv(
         python="3.12.1",

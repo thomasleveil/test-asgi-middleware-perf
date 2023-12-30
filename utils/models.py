@@ -38,6 +38,11 @@ class FalconServerEnv(ServerEnv):
 
 
 @dataclass
+class FastapiServerEnv(ServerEnv):
+    fastapi: str
+
+
+@dataclass
 class LitestarServerEnv(ServerEnv):
     litestar: str
 

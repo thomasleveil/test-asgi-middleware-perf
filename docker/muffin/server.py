@@ -1,18 +1,18 @@
+import os
 import sys
 from functools import partial
 
 import muffin
 
 # Default value for middleware count
-MIDDLEWARE_COUNT = 5
+MIDDLEWARE_COUNT = 1
 
 # Check if an argument is provided
-if len(sys.argv) > 1:
-    try:
-        MIDDLEWARE_COUNT = int(sys.argv[1])
-    except ValueError:
-        print("Please provide a valid integer for middleware count")
-        sys.exit(1)
+try:
+    MIDDLEWARE_COUNT = int(os.environ['NUM_MIDDLEWARES'])
+except ValueError:
+    print("Please provide a valid integer for middleware count")
+    sys.exit(1)
 
 print("Middlewares to setup: " + str(MIDDLEWARE_COUNT))
 

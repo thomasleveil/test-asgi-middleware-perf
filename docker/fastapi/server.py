@@ -1,20 +1,19 @@
+import os
 import sys
 
 from fastapi import FastAPI
 from fastapi.responses import PlainTextResponse
-from starlette.requests import Request
 from starlette.types import ASGIApp, Scope, Receive, Send
 
 # Default value for middleware count
 MIDDLEWARE_COUNT = 1
 
 # Check if an argument is provided
-if len(sys.argv) > 1:
-    try:
-        MIDDLEWARE_COUNT = int(sys.argv[1])
-    except ValueError:
-        print("Please provide a valid integer for middleware count")
-        sys.exit(1)
+try:
+    MIDDLEWARE_COUNT = int(os.environ['NUM_MIDDLEWARES'])
+except ValueError:
+    print("Please provide a valid integer for middleware count")
+    sys.exit(1)
 
 print("Middlewares to setup: " + str(MIDDLEWARE_COUNT))
 
@@ -40,19 +39,13 @@ class MyMiddleware:
 app = FastAPI()
 
 
-async def my_middleware(request: Request, call_next):
-    response = await call_next(request)
-    response.status_code += 1
-    return response
-
-
 @app.get("/_ping", response_class=PlainTextResponse)
 async def ping():
     return "pong"
 
 
 for _ in range(MIDDLEWARE_COUNT):
-    app.middleware("http")(my_middleware)
+    app.add_middleware(MyMiddleware)
 
 if __name__ == "__main__":
     import uvicorn

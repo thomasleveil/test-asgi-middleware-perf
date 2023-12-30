@@ -1,15 +1,12 @@
 # Performance test suite for ASGI frameworks
 
 This project is a test suite trying to detect performance issues when using middlewares with 
-[Starlette](https://www.starlette.io/).
+ASGI frameworks.
 
 The middleware is doing almost nothing. We just test the effect on performances of having middlewares.
 
-The test is repeated for different ASGI frameworks.
-
 ## Results
 
-Test environment : Python 3.12.1, Uvicorn 0.25.0
 
 ![](report/summary.png)
 

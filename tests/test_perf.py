@@ -8,12 +8,10 @@ from python_on_whales import DockerClient
 
 from utils import extract_transaction_rate
 from utils.docker import build_docker_image
-from utils.models import ServerEnv, StarletteServerEnv, LitestarServerEnv, BlacksheepServerEnv, SanicServerEnv, \
-    MuffinServerEnv, FalconServerEnv, FastapiServerEnv
+from utils.models import *
 
 ####################################################
-num_queries = 5_000
-num_middleware = range(9)
+num_middleware = range(16)
 test_matrix: list[ServerEnv] = [
     StarletteServerEnv(
         python="3.12.1",
@@ -82,7 +80,9 @@ def test_perf(record_property, server_env: Type[ServerEnv], num_middleware: int)
 
     container = docker.container.create(
         image=image,
-        command=[str(num_middleware), str(num_queries)],
+        envs={
+            "NUM_MIDDLEWARES": num_middleware,
+        },
         volumes=[(str(unique_dir), "/stats")],
         labels={
             "num_middlewares": num_middleware,

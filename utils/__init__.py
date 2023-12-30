@@ -14,7 +14,7 @@ def extract_transaction_rate(raw_text):
     float: The extracted transaction rate, or None if it's not found.
     """
     # Regular expression to find the transaction rate in the text
-    transaction_rate_pattern = r'"transaction_rate":\s*([0-9.]+)'
+    transaction_rate_pattern = r'Requests/sec:\s*([0-9.]+)'
 
     # Search for the transaction rate in the text
     match = re.search(transaction_rate_pattern, raw_text)

@@ -12,7 +12,12 @@ RUN --mount=type=cache,target=/root/.cache \
 RUN --mount=type=cache,target=/var/cache/apt \
         apt-get update && apt-get install -y \
             curl \
-            siege
+            wrk
+
+ARG GUICORN_VERSION=21.2.0
+LABEL GUICORN_VERSION=${GUICORN_VERSION:?}
+RUN --mount=type=cache,target=/root/.cache \
+    pip install gunicorn==${GUICORN_VERSION}
 
 
 ARG UVICORN_VERSION=0.18.3
@@ -26,7 +31,7 @@ COPY server.py server.py
 
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/entrypoint.sh"]
 
 
 FROM base

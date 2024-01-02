@@ -11,7 +11,7 @@ def run_bombardier(url: str) -> str:
     container = docker.container.create(
         image=bombardier_image,
         cpuset_cpus=[2, 3],
-        command=f"/bombardier --duration=20s --format=json {url}".split(" ")
+        command=f"/bombardier --duration=60s --format=json {url}".split(" ")
     )
     print(f"starting bombardier container {container}")
     try:

@@ -61,7 +61,7 @@ def asgi_server(
         envs={
             "NUM_MIDDLEWARES": num_middlewares,
         },
-        cpuset_cpus=[0, 1],
+        cpuset_cpus=[0],
     )
     print(f"starting container {container}, with {num_middlewares} middlewares from image {docker_image.repo_tags}")
     container.start(attach=False)

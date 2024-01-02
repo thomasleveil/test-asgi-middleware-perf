@@ -1,20 +1,14 @@
+import json
 import os
 import sys
 
 from fastapi import FastAPI
 from fastapi.responses import PlainTextResponse
+from pydantic import BaseModel
+from starlette.datastructures import MutableHeaders
 from starlette.types import ASGIApp, Scope, Receive, Send
 
-# Default value for middleware count
-MIDDLEWARE_COUNT = 1
-
-# Check if an argument is provided
-try:
-    MIDDLEWARE_COUNT = int(os.environ['NUM_MIDDLEWARES'])
-except ValueError:
-    print("Please provide a valid integer for middleware count")
-    sys.exit(1)
-
+MIDDLEWARE_COUNT = int(os.environ.get('NUM_MIDDLEWARES', '0'))
 print("Middlewares to setup: " + str(MIDDLEWARE_COUNT))
 
 
@@ -23,13 +17,28 @@ class MyMiddleware:
         self.app = app
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
-        if scope['type'] == 'http':
+        if scope['type'] == 'http' and scope['path'] == '/_ping':
             original_send = send
+            initial_message = None
+            body = b""
 
             async def send_wrapper(message) -> None:
+                nonlocal body, initial_message
                 if message['type'] == 'http.response.start':
-                    message['status'] += 1
-                await original_send(message)
+                    initial_message = message
+                elif message['type'] == 'http.response.body':
+                    body += message.get('body', b"")
+                    if not message.get('more_body', False):
+                        data = json.loads(body.decode())
+                        body = json.dumps({"count": data['count'] + 1}).encode()
+
+                        headers = MutableHeaders(raw=initial_message["headers"])
+                        headers["Content-Length"] = str(len(body))
+                        await original_send(initial_message)
+                        await original_send({
+                            "type": "http.response.body",
+                            "body": body,
+                        })
 
             await self.app(scope, receive, send_wrapper)
         else:
@@ -39,9 +48,12 @@ class MyMiddleware:
 app = FastAPI()
 
 
-@app.get("/_ping", response_class=PlainTextResponse)
+class Resource(BaseModel):
+    count: int
+
+@app.get("/_ping", response_model=Resource)
 async def ping():
-    return "pong"
+    return {"count": 0}
 
 
 for _ in range(MIDDLEWARE_COUNT):

@@ -1,30 +1,20 @@
 import os
-import sys
 
-from blacksheep import Application, get
+from blacksheep import Application, get, json
 
-# Default value for middleware count
-MIDDLEWARE_COUNT = 1
-
-# Check if an argument is provided
-try:
-    MIDDLEWARE_COUNT = int(os.environ['NUM_MIDDLEWARES'])
-except ValueError:
-    print("Please provide a valid integer for middleware count")
-    sys.exit(1)
-
+MIDDLEWARE_COUNT = int(os.environ.get('NUM_MIDDLEWARES', '0'))
 print("Middlewares to setup: " + str(MIDDLEWARE_COUNT))
 
 
 @get("/_ping")
 async def ping():
-    return "pong"
+    return json({"count": 0})
 
 
 async def middleware_one(request, handler):
     response = await handler(request)
-    response.status = response.status + 1
-    return response
+    data = await response.json()
+    return json({"count": data["count"] + 1})
 
 
 app = Application()

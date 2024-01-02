@@ -1,38 +1,49 @@
+import json
 import os
-import sys
 
 from litestar import Litestar, get
-from litestar.types import Scope, Receive, Send, ASGIApp, Message
+from litestar.datastructures import MutableScopeHeaders
+from litestar.types import Scope, Receive, Send, ASGIApp, Message, HTTPResponseStartEvent
 
-# Default value for middleware count
-MIDDLEWARE_COUNT = 1
-
-# Check if an argument is provided
-try:
-    MIDDLEWARE_COUNT = int(os.environ['NUM_MIDDLEWARES'])
-except ValueError:
-    print("Please provide a valid integer for middleware count")
-    sys.exit(1)
-
+MIDDLEWARE_COUNT = int(os.environ.get('NUM_MIDDLEWARES', '0'))
 print("Middlewares to setup: " + str(MIDDLEWARE_COUNT))
+
 
 def middleware_factory(app: ASGIApp) -> ASGIApp:
     async def my_middleware(scope: Scope, receive: Receive, send: Send) -> None:
-        if scope['type'] == 'http':
+        if scope['type'] == 'http' and scope['path'] == '/_ping':
             original_send = send
+            initial_message: HTTPResponseStartEvent
+            body = b""
+
             async def send_wrapper(message: Message) -> None:
+                nonlocal body, initial_message
                 if message['type'] == 'http.response.start':
-                    message['status'] += 1
-                await original_send(message)
+                    initial_message = message
+                elif message['type'] == 'http.response.body':
+                    body += message.get('body', b"")
+                    if not message.get('more_body', False):
+                        data = json.loads(body.decode())
+                        body = json.dumps({"count": data['count'] + 1}).encode()
+
+                        headers = MutableScopeHeaders.from_message(message=initial_message)
+                        headers["Content-Length"] = str(len(body))
+                        await original_send(initial_message)
+                        await original_send({
+                            "type": "http.response.body",
+                            "body": body,
+                        })
+
             await app(scope, receive, send_wrapper)
         else:
             await app(scope, receive, send)
 
     return my_middleware
 
+
 @get("/_ping")
-async def ping() -> str:
-    return "pong"
+async def ping() -> dict:
+    return {"count": 0}
 
 
 app = Litestar(

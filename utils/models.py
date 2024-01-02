@@ -20,3 +20,6 @@ class AsgiServerEnv(ServerEnv):
     @property
     def tag(self) -> str:
         return f"{self.asgi_module}_{self.asgi_version}__{self.base_image_tag}"
+
+    def __str__(self) -> str:
+        return f"{self.asgi_module} {self.asgi_version}, {self.base_image_tag}"

@@ -1,19 +1,10 @@
+import json
 import os
-import sys
 from functools import partial
 
 import muffin
 
-# Default value for middleware count
-MIDDLEWARE_COUNT = 1
-
-# Check if an argument is provided
-try:
-    MIDDLEWARE_COUNT = int(os.environ['NUM_MIDDLEWARES'])
-except ValueError:
-    print("Please provide a valid integer for middleware count")
-    sys.exit(1)
-
+MIDDLEWARE_COUNT = int(os.environ.get('NUM_MIDDLEWARES', '0'))
 print("Middlewares to setup: " + str(MIDDLEWARE_COUNT))
 
 app = muffin.Application()
@@ -21,17 +12,21 @@ app = muffin.Application()
 
 @app.route('/', "/_ping")
 async def ping(request):
-    return "pong"
+    return muffin.ResponseJSON({"count": 0})
 
 
-async def dummy_middleware(app, request, receive, send):
-    response = await app(request, receive, send)
-    response.status_code += 1
-    return response
+async def my_middleware(app, request: muffin.Request, receive, send):
+    if request.url.path != "/_ping":
+        return await app(request, receive, send)
+
+    response: muffin.ResponseJSON = await app(request, receive, send)
+    data = json.loads(response.content)
+    data['count'] += 1
+    return muffin.ResponseJSON(data)
 
 
 for _ in range(MIDDLEWARE_COUNT):
-    app.middleware(partial(dummy_middleware))
+    app.middleware(partial(my_middleware))
 
 if __name__ == "__main__":
     import uvicorn

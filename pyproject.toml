@@ -1,6 +1,6 @@
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "-vv --html=pytest_report.html"
+addopts = "-vv"
 testpaths = [
     "tests",
 ]

@@ -1,20 +1,23 @@
 import re
+from typing import Any
 
+import pytest
 from matplotlib import pyplot as plt
 
 
+def get_custom_property(item: pytest.Item, prop_name: str) -> Any:
+    return next(
+        (
+            property_value
+            for property_name, property_value in item.user_properties
+            if property_name == prop_name
+        )
+        , None
+    )
+
+
 def extract_transaction_rate(raw_text):
-    """
-    Extracts the transaction rate from the provided raw text.
-
-    Args:
-    raw_text (str): A string containing the raw text from which the transaction rate needs to be extracted.
-
-    Returns:
-    float: The extracted transaction rate, or None if it's not found.
-    """
-    # Regular expression to find the transaction rate in the text
-    transaction_rate_pattern = r'Requests/sec:\s*([0-9.]+)'
+    transaction_rate_pattern = r'Transaction rate : \s*([0-9.]+)'
 
     # Search for the transaction rate in the text
     match = re.search(transaction_rate_pattern, raw_text)

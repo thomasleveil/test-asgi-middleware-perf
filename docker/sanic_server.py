@@ -1,19 +1,9 @@
+import json as python_json
 import os
-import sys
 
-from sanic import Sanic
-from sanic.response import text
+from sanic import Sanic, Request, json
 
-# Default value for middleware count
-MIDDLEWARE_COUNT = 1
-
-# Check if an argument is provided
-try:
-    MIDDLEWARE_COUNT = int(os.environ['NUM_MIDDLEWARES'])
-except ValueError:
-    print("Please provide a valid integer for middleware count")
-    sys.exit(1)
-
+MIDDLEWARE_COUNT = int(os.environ.get('NUM_MIDDLEWARES', '0'))
 print("Middlewares to setup: " + str(MIDDLEWARE_COUNT))
 
 app = Sanic("TestServer")
@@ -21,15 +11,17 @@ app = Sanic("TestServer")
 
 @app.get("/_ping")
 async def ping(request):
-    return text("pong")
+    return json({"count": 0})
 
 
-async def dummy_middleware(request, response):
-    response.status += 1
+async def my_middleware(request: Request, response):
+    if request.path == "/_ping" and response.status == 200:
+        data = python_json.loads(response.body)
+        response.body = python_json.dumps({"count": data["count"] + 1})
 
 
 for _ in range(MIDDLEWARE_COUNT):
-    app.middleware(dummy_middleware, "response", priority=0)
+    app.middleware(my_middleware, "response", priority=0)
 
 if __name__ == "__main__":
     import uvicorn

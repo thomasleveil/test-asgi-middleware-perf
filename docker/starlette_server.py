@@ -1,21 +1,13 @@
+import json
 import os
-import sys
 
 from starlette.applications import Starlette
+from starlette.datastructures import MutableHeaders
 from starlette.middleware import Middleware
-from starlette.responses import PlainTextResponse
+from starlette.responses import JSONResponse
 from starlette.routing import Route
 
-# Default value for middleware count
-MIDDLEWARE_COUNT = 1
-
-# Check if an argument is provided
-try:
-    MIDDLEWARE_COUNT = int(os.environ['NUM_MIDDLEWARES'])
-except ValueError:
-    print("Please provide a valid integer for middleware count")
-    sys.exit(1)
-
+MIDDLEWARE_COUNT = int(os.environ.get('NUM_MIDDLEWARES', '0'))
 print("Middlewares to setup: " + str(MIDDLEWARE_COUNT))
 
 
@@ -24,13 +16,28 @@ class ASGIMiddleware:
         self.app = app
 
     async def __call__(self, scope, receive, send):
-        if scope['type'] == 'http':
+        if scope['type'] == 'http' and scope['path'] == '/_ping':
             original_send = send
+            initial_message = None
+            body = b""
 
             async def send_wrapper(message) -> None:
+                nonlocal body, initial_message
                 if message['type'] == 'http.response.start':
-                    message['status'] += 1
-                await original_send(message)
+                    initial_message = message
+                elif message['type'] == 'http.response.body':
+                    body += message.get('body', b"")
+                    if not message.get('more_body', False):
+                        data = json.loads(body.decode())
+                        body = json.dumps({"count": data['count'] + 1}).encode()
+
+                        headers = MutableHeaders(raw=initial_message["headers"])
+                        headers["Content-Length"] = str(len(body))
+                        await original_send(initial_message)
+                        await original_send({
+                            "type": "http.response.body",
+                            "body": body,
+                        })
 
             await self.app(scope, receive, send_wrapper)
         else:
@@ -38,7 +45,7 @@ class ASGIMiddleware:
 
 
 async def ping(request):
-    return PlainTextResponse("pong")
+    return JSONResponse({"count": 0})
 
 
 app = Starlette(

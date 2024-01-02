@@ -5,15 +5,8 @@ FROM python:${PYTHON_VERSION:?} as base
 
 LABEL PYTHON_VERSION=${PYTHON_VERSION}
 
-
 RUN --mount=type=cache,target=/root/.cache \
     python -m pip install -U pip
-
-RUN --mount=type=cache,target=/var/cache/apt \
-        apt-get update && apt-get install -y \
-            curl \
-            wrk
-
 
 ARG GUICORN_VERSION=21.2.0
 LABEL GUICORN_VERSION=${GUICORN_VERSION:?}

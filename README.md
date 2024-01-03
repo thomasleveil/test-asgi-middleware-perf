@@ -10,7 +10,7 @@ frameworks.
 - The performances are measured from [Bombardier](https://github.com/codesenberg/bombardier) running in its own Docker
   container
 
-While the original intent is to show how performances degrades when using many middlewares, this project can easily be
+While the original intent is to show how performances degrade when using many middlewares, this project can easily be
 configured to compare performances when using different versions of : 
 - Python
 - Gunicorn

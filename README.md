@@ -1,9 +1,21 @@
-# Performance test suite for ASGI frameworks
+# Performance test suite for ASGI frameworks & middlewares
 
-This project is a test suite trying to detect performance issues when using middlewares with 
-ASGI frameworks.
+This project is a test suite showing how performances are affected by the presence of middlewares in popular ASGI 
+frameworks.
 
-The middleware is doing almost nothing. We just test the effect on performances of having middlewares.
+- The middleware is altering the JSON response body by incrementing a value 
+- The middleware implementations try to be as efficient as possible (for instance, implementing a pure middleware 
+  in Starlette instead of using BaseHTTPMiddleware)
+- The ASGI server stack is a Docker container bound to a single CPU running Gunicorn with 1 Uvicorn worker 
+- The performances are measured from [Bombardier](https://github.com/codesenberg/bombardier) running in its own Docker
+  container
+
+While the original intent is to show how performances degrades when using many middlewares, this project can easily be
+configured to compare performances when using different versions of : 
+- Python
+- Gunicorn
+- Uvicorn
+- ASGI frameworks
 
 ## Results
 
@@ -39,9 +51,7 @@ See the top section of [tests/config.py](tests/config.py)
 
 If you want to modify this test suite, here are a few pointers.
 
-- A Docker image is built for each configured versions of the ASGI framework, Python and Uvicorn.
-  See Dockerfiles in [docker/*](docker/)
-- The server implementations are minimal. See [docker/*_server.py](docker/)
+- The whole project is based on [Pytest](https://docs.pytest.org/)
 - Performance tests are performed using [Bombardier](https://github.com/codesenberg/bombardier) which is run in its own 
   container. See [docker/bombardier/Dockerfile](docker/bombardier/Dockerfile)
 - Pytest is used to create and run a docker container with the parametrized ASGI server configured with a certain number of middlewares.
